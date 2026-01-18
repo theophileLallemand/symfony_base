@@ -1,0 +1,329 @@
+:root{
+    --bg-main: linear-gradient(135deg, #fbf7f0 0%, #f6f0e7 45%, #fffaf4 100%);
+    --card-bg: #ffffff;
+  
+    --text-main: #2a2621;
+    --text-muted: #8a8176;
+  
+    --border: #eee5d9;
+  
+    --gold-1: #d8c2a0;
+    --gold-2: #c9ad83;
+    --gold-3: #b8925a;
+  
+    --sage-1: #b7c8b9;
+    --sage-2: #9fb6a3;
+  
+    --mauve-1: #c9bdd3;
+    --mauve-2: #b1a3be;
+  
+    --dark-1: #2f2a24;
+    --dark-2: #1f1a16;
+  
+    --sidebar-bg: linear-gradient(180deg, #2f2a24 0%, #1f1a16 100%);
+    --sidebar-hover: rgba(255,255,255,.08);
+  
+    --csv-1: #b7c8b9;
+    --csv-2: #9fb6a3;
+  }
+  
+  /* BASE */
+  *{ box-sizing: border-box; }
+  
+  body{
+    margin:0;
+    min-height:100vh;
+    background: var(--bg-main);
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto;
+    color: var(--text-main);
+  }
+  
+  a{ text-decoration:none; }
+  
+  /* LAYOUT */
+  main{ padding:24px; }
+  
+  aside{
+    background: var(--sidebar-bg);
+    color:#fff;
+  }
+  
+  /* Liens menu */
+  aside a{
+    display:flex;
+    align-items:center;
+    gap:10px;
+  
+    padding:10px 12px;
+    border-radius:14px;
+  
+    color: rgba(255,255,255,.92);
+    font-weight:650;
+    letter-spacing:.2px;
+  
+    transition: background .2s ease, transform .08s ease, color .2s ease;
+  }
+  
+  aside a:hover{
+    background: var(--sidebar-hover);
+    color:#fff;
+  }
+  
+  aside a:active{ transform: translateY(1px); }
+  
+  /* Décor du menu : NE BLOQUE JAMAIS LES CLICS */
+  aside a::after{
+    content:"";
+    margin-left:auto;
+    width:0;
+    height:1px;
+    background: rgba(216,194,160,.55);
+    transition: width .2s ease;
+    pointer-events:none;
+  }
+  
+  aside a:hover::after{ width:28px; }
+  
+  /* TITRES */
+  h1{
+    font-size:28px;
+    font-weight:850;
+    letter-spacing:-.4px;
+  }
+  
+  h2{ font-weight:750; }
+  
+  /* CARDS */
+  .bg-white{ background: var(--card-bg) !important; }
+  
+  .shadow{
+    box-shadow:
+      0 14px 34px rgba(47,42,36,.08),
+      0 2px 10px rgba(47,42,36,.05);
+  }
+  
+  .rounded{ border-radius:20px !important; }
+  
+  /* TABLES */
+  table{
+    border-collapse:separate;
+    border-spacing:0;
+  }
+  
+  thead{
+    background: linear-gradient(90deg, #fffaf4, #f6f0e7);
+  }
+  
+  th{
+    font-size:13px;
+    text-transform:uppercase;
+    letter-spacing:.06em;
+    color: #978c80;
+  }
+  
+  tbody tr{
+    transition: background .15s ease, transform .08s ease;
+  }
+  
+  tbody tr:hover{
+    background:#fffaf4;
+    transform: scale(1.001);
+  }
+  
+  /* =========================
+     BOUTONS CTA – BEIGE LUXE
+     ========================= */
+  
+  a.bg-blue-600,
+  a.bg-green-600,
+  a.bg-purple-600,
+  a.bg-gray-800,
+  a.bg-gray-900{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+  
+    padding:12px 18px;
+    border-radius:999px;
+  
+    font-weight:750;
+    font-size:14px;
+    letter-spacing:.25px;
+  
+    white-space:nowrap;
+  
+    transition: transform .15s ease, box-shadow .15s ease, filter .15s ease;
+    cursor:pointer;
+  }
+  
+  a.bg-blue-600:hover,
+  a.bg-green-600:hover,
+  a.bg-purple-600:hover,
+  a.bg-gray-800:hover,
+  a.bg-gray-900:hover{
+    transform: translateY(-2px);
+    filter: brightness(1.03);
+  }
+  
+  a.bg-blue-600{
+    background: linear-gradient(135deg, var(--gold-1), var(--gold-2)) !important;
+    color:#fff !important;
+    box-shadow: 0 16px 30px rgba(201,173,131,.28);
+  }
+  
+  a.bg-green-600{
+    background: linear-gradient(135deg, var(--csv-1), var(--csv-2)) !important;
+    color:#fff !important;
+    box-shadow: 0 16px 30px rgba(159,182,163,.22);
+    border: 1px solid rgba(255,255,255,.25);
+  }
+  
+  a.bg-purple-600{
+    background: linear-gradient(135deg, var(--mauve-1), var(--mauve-2)) !important;
+    color:#fff !important;
+    box-shadow: 0 16px 30px rgba(177,163,190,.22);
+  }
+  
+  a.bg-gray-800,
+  a.bg-gray-900{
+    background: linear-gradient(135deg, var(--dark-1), var(--dark-2)) !important;
+    color:#fff !important;
+    box-shadow: 0 16px 30px rgba(31,26,22,.22);
+  }
+  
+  a.bg-blue-600:active,
+  a.bg-green-600:active,
+  a.bg-purple-600:active,
+  a.bg-gray-800:active,
+  a.bg-gray-900:active{
+    transform: translateY(0);
+    box-shadow: 0 7px 16px rgba(0,0,0,.18);
+  }
+  
+  /* Focus clavier (accessibilité) */
+  a.bg-blue-600:focus-visible,
+  a.bg-green-600:focus-visible,
+  a.bg-purple-600:focus-visible,
+  a.bg-gray-800:focus-visible,
+  a.bg-gray-900:focus-visible{
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(201,173,131,.22), 0 16px 30px rgba(31,26,22,.18);
+  }
+  
+  /* =========================
+     LIENS "ACCÉDER" → MINI CTA BEIGE
+     ========================= */
+  
+  a.text-blue-600.hover\:underline{
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+  
+    padding:8px 16px;
+    border-radius:999px;
+  
+    font-size:13px;
+    font-weight:750;
+  
+    text-decoration:none !important;
+    color: #7a5b2e !important;
+  
+    background: linear-gradient(
+      135deg,
+      rgba(216,194,160,.22),
+      rgba(201,173,131,.28)
+    );
+  
+    border: 1px solid rgba(201,173,131,.35);
+  
+    transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+    cursor:pointer;
+  }
+  
+  a.text-blue-600.hover\:underline::after{
+    content:"→";
+    font-weight:900;
+    transition: transform .15s ease;
+    pointer-events:none;
+  }
+  
+  a.text-blue-600.hover\:underline:hover{
+    background: linear-gradient(
+      135deg,
+      rgba(216,194,160,.30),
+      rgba(201,173,131,.38)
+    );
+    box-shadow: 0 10px 18px rgba(201,173,131,.20);
+    transform: translateY(-1px);
+  }
+  
+  a.text-blue-600.hover\:underline:hover::after{
+    transform: translateX(3px);
+  }
+  
+  a.text-blue-600.hover\:underline:active{
+    transform: translateY(0);
+    box-shadow: 0 5px 12px rgba(0,0,0,.14);
+  }
+  
+  /* =========================
+     ACTIONS RAPIDES
+     ========================= */
+  
+  .flex.flex-wrap.gap-3 a{
+    min-width:200px;
+    text-align:center;
+  }
+  
+  /* =========================
+     CARTES KPI (DASHBOARD) – NE BLOQUE JAMAIS LES CLICS
+     ========================= */
+  
+  .grid > div.bg-white{
+    position:relative;
+    overflow:hidden;
+    border: 1px solid var(--border);
+  }
+  
+  /* DÉCOR : pointer-events none pour ne jamais bloquer boutons */
+  .grid > div.bg-white::after{
+    content:"";
+    position:absolute;
+    inset:auto -30% -65% -30%;
+    height:150%;
+    background: radial-gradient(
+      circle at bottom,
+      rgba(216,194,160,.14),
+      transparent 70%
+    );
+    pointer-events:none;
+  }
+  
+  /* Sécurité : tout lien dans les cartes passe au-dessus */
+  .grid > div.bg-white a{
+    position: relative;
+    z-index: 1;
+  }
+  
+  /* FORMULAIRES */
+  input, textarea, select{
+    border-radius:16px !important;
+    border:1px solid var(--border) !important;
+  }
+  
+  input:focus, textarea:focus, select:focus{
+    outline:none;
+    border-color: rgba(201,173,131,.65) !important;
+    box-shadow: 0 0 0 4px rgba(201,173,131,.18);
+  }
+  
+  /* RESPONSIVE */
+  @media(max-width:900px){
+    aside{ width:220px; }
+  }
+  
+  @media(max-width:700px){
+    main{ padding:16px; }
+  }
+  

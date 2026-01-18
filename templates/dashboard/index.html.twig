@@ -4,7 +4,8 @@
 
 {% block body %}
 <div class="p-6 space-y-6">
-    <div class="flex items-center justify-between">
+
+    <div class="flex items-start justify-between gap-6 flex-wrap">
         <div>
             <h1 class="text-2xl font-bold">Dashboard</h1>
             <p class="text-gray-600 mt-1">
@@ -12,11 +13,7 @@
             </p>
         </div>
 
-        <div class="flex gap-3">
-            <a href="{{ path('product_index') }}"
-               class="bg-gray-900 text-white px-4 py-2 rounded hover:bg-gray-800 transition">
-                Voir les produits
-            </a>
+        <div class="flex gap-3 flex-wrap">
 
             {% if is_granted('ROLE_ADMIN') %}
                 <a href="{{ path('product_new') }}"
@@ -28,43 +25,95 @@
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div class="bg-white shadow rounded p-5">
-            <div class="text-sm text-gray-500">Produits</div>
-            <div class="text-3xl font-bold mt-2">{{ productCount }}</div>
-            <div class="mt-4">
-                <a class="text-blue-600 hover:underline" href="{{ path('product_index') }}">Accéder</a>
+
+        <div class="bg-white shadow rounded p-6 border border-[#eee5d9]">
+            <div class="flex items-center justify-between">
+                <div class="text-sm text-gray-500">Produits</div>
+                <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-[#f6f0e7] text-[#7a5b2e] border border-[#eee5d9]">
+                    Catalogue
+                </span>
+            </div>
+
+            <div class="mt-4 text-4xl font-extrabold tracking-tight">
+                {{ productCount }}
+            </div>
+
+            <div class="mt-5 flex gap-3 flex-wrap">
+                <a href="{{ path('product_index') }}"
+                   class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
+                    Voir le catalogue
+                </a>
+
+                <a href="{{ path('product_export_csv') }}"
+                   class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition">
+                    Export CSV
+                </a>
             </div>
         </div>
 
-        <div class="bg-white shadow rounded p-5">
-            <div class="text-sm text-gray-500">Clients</div>
-            <div class="text-3xl font-bold mt-2">{{ clientCount }}</div>
-            <div class="mt-4">
+        <div class="bg-white shadow rounded p-6 border border-[#eee5d9]">
+            <div class="flex items-center justify-between">
+                <div class="text-sm text-gray-500">Clients</div>
+                <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-[#f6f0e7] text-[#7a5b2e] border border-[#eee5d9]">
+                    Fiches
+                </span>
+            </div>
+
+            <div class="mt-4 text-4xl font-extrabold tracking-tight">
+                {{ clientCount }}
+            </div>
+
+            <div class="mt-5">
                 {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_MANAGER') %}
-                    <a class="text-blue-600 hover:underline" href="{{ path('client_index') }}">Accéder</a>
+                    <a href="{{ path('client_index') }}"
+                       class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition">
+                        Voir les clients
+                    </a>
                 {% else %}
-                    <span class="text-gray-400">Accès restreint</span>
+                    <span class="text-sm text-gray-400">
+                        Accès restreint (admin / manager)
+                    </span>
                 {% endif %}
             </div>
         </div>
 
-        <div class="bg-white shadow rounded p-5">
-            <div class="text-sm text-gray-500">Utilisateurs</div>
-            <div class="text-3xl font-bold mt-2">{{ userCount }}</div>
-            <div class="mt-4">
+        <div class="bg-white shadow rounded p-6 border border-[#eee5d9]">
+            <div class="flex items-center justify-between">
+                <div class="text-sm text-gray-500">Utilisateurs</div>
+                <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-[#f6f0e7] text-[#7a5b2e] border border-[#eee5d9]">
+                    Comptes
+                </span>
+            </div>
+
+            <div class="mt-4 text-4xl font-extrabold tracking-tight">
+                {{ userCount }}
+            </div>
+
+            <div class="mt-5">
                 {% if is_granted('ROLE_ADMIN') %}
-                    <a class="text-blue-600 hover:underline" href="{{ path('user_index') }}">Accéder</a>
+                    <a href="{{ path('user_index') }}"
+                       class="bg-gray-800 text-white px-4 py-2 rounded hover:bg-gray-700 transition">
+                        Gérer les comptes
+                    </a>
                 {% else %}
-                    <span class="text-gray-400">Accès admin</span>
+                    <span class="text-sm text-gray-400">
+                        Admin uniquement
+                    </span>
                 {% endif %}
             </div>
         </div>
+
     </div>
 
-    <div class="bg-white shadow rounded p-6">
-        <h2 class="text-lg font-semibold mb-4">Actions rapides</h2>
+    <div class="bg-white shadow rounded p-6 border border-[#eee5d9]">
+        <div class="flex items-center justify-between flex-wrap gap-4">
+            <h2 class="text-lg font-semibold">Actions rapides</h2>
+            <span class="text-sm text-gray-500">
+                Accès direct aux fonctionnalités principales
+            </span>
+        </div>
 
-        <div class="flex flex-wrap gap-3">
+        <div class="mt-5 grid grid-cols-1 md:grid-cols-3 gap-3">
             <a href="{{ path('product_export_csv') }}"
                class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition">
                 Exporter les produits (CSV)
@@ -85,5 +134,6 @@
             {% endif %}
         </div>
     </div>
+
 </div>
 {% endblock %}
