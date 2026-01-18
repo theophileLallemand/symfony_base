@@ -1,18 +1,43 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
-        {% block stylesheets %}
-        {% endblock %}
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Backoffice{% endblock %}</title>
+    {{ encore_entry_link_tags('app') }}
+</head>
 
-        {% block javascripts %}
-            {% block importmap %}{{ importmap('app') }}{% endblock %}
-        {% endblock %}
-    </head>
-    <body>
-        {{ include('common/_flash_messages.html.twig') }}
+<body class="flex min-h-screen">
+
+    <!-- MENU LATERAL -->
+    <aside class="w-64 bg-gray-800 text-white p-4">
+        <h2 class="text-xl font-bold mb-6">Backoffice</h2>
+
+        <nav class="flex flex-col gap-3">
+            <a href="{{ path('app_dashboard') }}">Dashboard</a>
+
+            {# Visible pour tous les connectés #}
+            <a href="{{ path('product_index') }}">Produits</a>
+            <a href="{{ path('client_index') }}">Clients</a>
+            <a href="{{ path('product_index') }}">Produits</a>
+
+
+            {# 🔐 Visible uniquement ADMIN #}
+            {% if is_granted('ROLE_ADMIN') %}
+                <a href="{{ path('admin_user_index') }}">
+                    Utilisateurs
+                </a>
+            {% endif %}
+            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_MANAGER') %}
+    <a href="{{ path('client_index') }}">Clients</a>
+{% endif %}
+
+        </nav>
+    </aside>
+
+    <!-- CONTENU PRINCIPAL -->
+    <main class="flex-1 p-6 bg-gray-100">
         {% block body %}{% endblock %}
-    </body>
+    </main>
+
+</body>
 </html>

@@ -1,28 +1,22 @@
-
-###> symfony/framework-bundle ###
-/.env.local
-/.env.local.php
-/.env.*.local
-/config/secrets/prod/prod.decrypt.private.php
-/public/bundles/
-/var/
+# Dépendances
 /vendor/
-###< symfony/framework-bundle ###
 
-###> phpunit/phpunit ###
-/phpunit.xml
+# Environnement
+.env.local
+.env.local.php
+
+# Cache & logs
+/var/
+!/var/.gitkeep
+
+# PHPUnit
+.phpunit.cache/
 .phpunit.result.cache
-###< phpunit/phpunit ###
 
-###> symfony/phpunit-bridge ###
-.phpunit.result.cache
-/phpunit.xml
-###< symfony/phpunit-bridge ###
+# IDE / éditeurs
+.idea/
+.vscode/
 
-###> symfony/asset-mapper ###
-/public/assets/
-/assets/vendor/
-###< symfony/asset-mapper ###
-
-### .idx
-/.idx/.data
+# OS
+.DS_Store
+Thumbs.db

@@ -1,0 +1,20 @@
+<h1>Produits</h1>
+
+{% if is_granted('ROLE_ADMIN') %}
+    <a href="{{ path('product_new') }}">Ajouter un produit</a>
+{% endif %}
+
+<table>
+    {% for product in products %}
+        <tr>
+            <td>{{ product.name }}</td>
+            <td>{{ product.price }} €</td>
+            <td>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a href="#">Modifier</a>
+                    <a href="#">Supprimer</a>
+                {% endif %}
+            </td>
+        </tr>
+    {% endfor %}
+</table>
