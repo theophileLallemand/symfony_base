@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier un produit{% endblock %}
+
+{% block body %}
+<div class="p-6 max-w-2xl">
+    <h1 class="text-2xl font-bold mb-6">Modifier un produit</h1>
+
+    {{ form_start(form) }}
+        <div class="bg-white shadow rounded p-6 space-y-4">
+            {{ form_row(form.name) }}
+            {{ form_row(form.description) }}
+            {{ form_row(form.price) }}
+
+            <div class="flex gap-3 pt-2">
+                <button class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
+                    Enregistrer
+                </button>
+                <a href="{{ path('product_index') }}"
+                   class="bg-gray-200 px-4 py-2 rounded hover:bg-gray-300 transition">
+                    Retour
+                </a>
+            </div>
+        </div>
+    {{ form_end(form) }}
+</div>
+{% endblock %}

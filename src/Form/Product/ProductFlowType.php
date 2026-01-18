@@ -1,31 +1,24 @@
-use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Form\FormTypeInterface;
-use Symfony\Component\Form\MultiStepForm;
+<?php
 
-class ProductFlowType extends MultiStepForm
+namespace App\Form\Product;
+
+use App\Form\Product\Step\ProductDetailsStepType;
+use App\Form\Product\Step\ProductLicenseStepType;
+use App\Form\Product\Step\ProductLogisticsStepType;
+use App\Form\Product\Step\ProductTypeStepType;
+use Symfony\Component\Form\AbstractType;
+
+
+class ProductFlowType extends AbstractType
 {
-    public function getSteps(): iterable
+
+    public static function getSteps(): array
     {
         return [
-            'type' => ProductTypeStepType::class,
-            'details' => ProductDetailsStepType::class,
-            'logistics' => ProductLogisticsStepType::class,
-            'license' => ProductLicenseStepType::class,
+            ProductTypeStepType::class,
+            ProductDetailsStepType::class,
+            ProductLogisticsStepType::class,
+            ProductLicenseStepType::class,
         ];
-    }
-
-    public function isStepSkipped(string $step, FormInterface $form): bool
-    {
-        $data = $form->getData();
-
-        if ($step === 'logistics' && $data->getType() !== 'physical') {
-            return true;
-        }
-
-        if ($step === 'license' && $data->getType() !== 'digital') {
-            return true;
-        }
-
-        return false;
     }
 }

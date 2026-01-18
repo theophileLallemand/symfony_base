@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails produit{% endblock %}
+
+{% block body %}
+<div class="p-6 max-w-3xl">
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-2xl font-bold">Détails du produit</h1>
+
+        <div class="flex gap-3">
+            <a href="{{ path('product_index') }}"
+               class="bg-gray-200 px-4 py-2 rounded hover:bg-gray-300 transition">
+                Retour
+            </a>
+
+            {% if is_granted('ROLE_ADMIN') %}
+                <a href="{{ path('product_edit', {id: product.id}) }}"
+                   class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600 transition">
+                    Modifier
+                </a>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="bg-white shadow rounded p-6 space-y-4">
+        <div>
+            <p class="text-sm text-gray-500">Nom</p>
+            <p class="text-lg font-semibold">{{ product.name }}</p>
+        </div>
+
+        <div>
+            <p class="text-sm text-gray-500">Description</p>
+            <p class="text-gray-800 whitespace-pre-line">{{ product.description }}</p>
+        </div>
+
+        <div>
+            <p class="text-sm text-gray-500">Prix</p>
+            <p class="text-lg font-semibold">{{ product.price|number_format(2, ',', ' ') }} €</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -7,13 +7,19 @@
     <div class="flex justify-between items-center mb-6">
         <h1 class="text-2xl font-bold">Gestion des produits</h1>
 
-        {# Bouton visible uniquement pour les admins #}
-        {% if is_granted('ROLE_ADMIN') %}
-            <a href="#"
-               class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
-                ➕ Ajouter un produit
+        <div class="flex gap-3">
+            <a href="{{ path('product_export_csv') }}"
+               class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition">
+                Exporter CSV
             </a>
-        {% endif %}
+
+            {% if is_granted('ROLE_ADMIN') %}
+                <a href="{{ path('product_new') }}"
+                   class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
+                    Ajouter un produit
+                </a>
+            {% endif %}
+        </div>
     </div>
 
     <div class="bg-white shadow rounded overflow-x-auto">
@@ -27,43 +33,45 @@
                 </tr>
             </thead>
             <tbody>
-                {# Exemple statique — remplacé plus tard par products #}
-                <tr class="hover:bg-gray-50">
-                    <td class="px-4 py-2 border">Produit A</td>
-                    <td class="px-4 py-2 border">Description du produit A</td>
-                    <td class="px-4 py-2 border text-right">9.99</td>
-                    <td class="px-4 py-2 border text-center space-x-2">
-                        <a href="#" class="text-blue-600 hover:underline">Voir</a>
+                {% for product in products %}
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-4 py-2 border">{{ product.name }}</td>
+                        <td class="px-4 py-2 border">{{ product.description }}</td>
+                        <td class="px-4 py-2 border text-right">{{ product.price|number_format(2, ',', ' ') }}</td>
+                        <td class="px-4 py-2 border text-center">
+                            <div class="flex items-center justify-center gap-3">
+                                <a href="{{ path('product_show', {id: product.id}) }}"
+                                   class="text-blue-600 hover:underline">
+                                    Voir
+                                </a>
 
-                        {% if is_granted('ROLE_ADMIN') %}
-                            <a href="#" class="text-yellow-600 hover:underline">Modifier</a>
-                            <a href="#"
-                               class="text-red-600 hover:underline"
-                               onclick="return confirm('Supprimer ce produit ?')">
-                                Supprimer
-                            </a>
-                        {% endif %}
-                    </td>
-                </tr>
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <a href="{{ path('product_edit', {id: product.id}) }}"
+                                       class="text-yellow-600 hover:underline">
+                                        Modifier
+                                    </a>
 
-                {# Message si aucun produit #}
-                {# 
-                <tr>
-                    <td colspan="4" class="text-center py-6 text-gray-500">
-                        Aucun produit enregistré.
-                    </td>
-                </tr>
-                #}
+                                    <form method="post" action="{{ path('product_delete', {id: product.id}) }}">
+                                        <input type="hidden" name="_token" value="{{ csrf_token('delete_product_' ~ product.id) }}">
+                                        <button type="submit"
+                                                class="text-red-600 hover:underline"
+                                                onclick="return confirm('Supprimer ce produit ?')">
+                                            Supprimer
+                                        </button>
+                                    </form>
+                                {% endif %}
+                            </div>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="4" class="text-center py-6 text-gray-500">
+                            Aucun produit enregistré
+                        </td>
+                    </tr>
+                {% endfor %}
             </tbody>
         </table>
-    </div>
-
-    {# Bouton export CSV #}
-    <div class="mt-6">
-        <a href="#"
-           class="inline-block bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition">
-            ⬇ Exporter en CSV
-        </a>
     </div>
 </div>
 {% endblock %}
