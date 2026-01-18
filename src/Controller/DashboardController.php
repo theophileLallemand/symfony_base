@@ -6,12 +6,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-class ProductController extends AbstractController
+class DashboardController extends AbstractController
 {
-    #[Route('/products', name: 'product_index', methods: ['GET'])]
+    #[Route('/dashboard', name: 'app_dashboard')]
     public function index(): Response
     {
-        // plus tard: récupérer les produits via repository
-        return $this->render('product/index.html.twig');
+        return $this->render('dashboard/index.html.twig');
     }
 }

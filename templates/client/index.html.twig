@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Clients{% endblock %}
+
+{% block body %}
+<div class="p-6">
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-2xl font-bold">Gestion des clients</h1>
+
+        {# Visible ADMIN + MANAGER #}
+        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_MANAGER') %}
+            <a href="#"
+               class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
+                ➕ Ajouter un client
+            </a>
+        {% endif %}
+    </div>
+
+    <div class="bg-white shadow rounded overflow-x-auto">
+        <table class="min-w-full border border-gray-200">
+            <thead class="bg-gray-100">
+                <tr>
+                    <th class="px-4 py-2 text-left border">Prénom</th>
+                    <th class="px-4 py-2 text-left border">Nom</th>
+                    <th class="px-4 py-2 text-left border">Email</th>
+                    <th class="px-4 py-2 text-left border">Téléphone</th>
+                    <th class="px-4 py-2 text-left border">Adresse</th>
+                    <th class="px-4 py-2 text-center border">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {# Exemple statique #}
+                <tr class="hover:bg-gray-50">
+                    <td class="px-4 py-2 border">Jean</td>
+                    <td class="px-4 py-2 border">Dupont</td>
+                    <td class="px-4 py-2 border">jean.dupont@test.fr</td>
+                    <td class="px-4 py-2 border">0612345678</td>
+                    <td class="px-4 py-2 border">12 rue de Metz</td>
+                    <td class="px-4 py-2 border text-center space-x-2">
+                        <a href="#" class="text-blue-600 hover:underline">Voir</a>
+
+                        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_MANAGER') %}
+                            <a href="#" class="text-yellow-600 hover:underline">Modifier</a>
+                        {% endif %}
+                    </td>
+                </tr>
+
+                {# Message si aucun client #}
+                {# 
+                <tr>
+                    <td colspan="6" class="text-center py-6 text-gray-500">
+                        Aucun client enregistré.
+                    </td>
+                </tr>
+                #}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

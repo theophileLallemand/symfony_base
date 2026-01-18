@@ -1,20 +1,69 @@
-<h1>Produits</h1>
+{% extends 'base.html.twig' %}
 
-{% if is_granted('ROLE_ADMIN') %}
-    <a href="{{ path('product_new') }}">Ajouter un produit</a>
-{% endif %}
+{% block title %}Produits{% endblock %}
 
-<table>
-    {% for product in products %}
-        <tr>
-            <td>{{ product.name }}</td>
-            <td>{{ product.price }} €</td>
-            <td>
-                {% if is_granted('ROLE_ADMIN') %}
-                    <a href="#">Modifier</a>
-                    <a href="#">Supprimer</a>
-                {% endif %}
-            </td>
-        </tr>
-    {% endfor %}
-</table>
+{% block body %}
+<div class="p-6">
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-2xl font-bold">Gestion des produits</h1>
+
+        {# Bouton visible uniquement pour les admins #}
+        {% if is_granted('ROLE_ADMIN') %}
+            <a href="#"
+               class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
+                ➕ Ajouter un produit
+            </a>
+        {% endif %}
+    </div>
+
+    <div class="bg-white shadow rounded overflow-x-auto">
+        <table class="min-w-full border border-gray-200">
+            <thead class="bg-gray-100">
+                <tr>
+                    <th class="px-4 py-2 text-left border">Nom</th>
+                    <th class="px-4 py-2 text-left border">Description</th>
+                    <th class="px-4 py-2 text-right border">Prix (€)</th>
+                    <th class="px-4 py-2 text-center border">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {# Exemple statique — remplacé plus tard par products #}
+                <tr class="hover:bg-gray-50">
+                    <td class="px-4 py-2 border">Produit A</td>
+                    <td class="px-4 py-2 border">Description du produit A</td>
+                    <td class="px-4 py-2 border text-right">9.99</td>
+                    <td class="px-4 py-2 border text-center space-x-2">
+                        <a href="#" class="text-blue-600 hover:underline">Voir</a>
+
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <a href="#" class="text-yellow-600 hover:underline">Modifier</a>
+                            <a href="#"
+                               class="text-red-600 hover:underline"
+                               onclick="return confirm('Supprimer ce produit ?')">
+                                Supprimer
+                            </a>
+                        {% endif %}
+                    </td>
+                </tr>
+
+                {# Message si aucun produit #}
+                {# 
+                <tr>
+                    <td colspan="4" class="text-center py-6 text-gray-500">
+                        Aucun produit enregistré.
+                    </td>
+                </tr>
+                #}
+            </tbody>
+        </table>
+    </div>
+
+    {# Bouton export CSV #}
+    <div class="mt-6">
+        <a href="#"
+           class="inline-block bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition">
+            ⬇ Exporter en CSV
+        </a>
+    </div>
+</div>
+{% endblock %}
